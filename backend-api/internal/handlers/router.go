@@ -20,6 +20,11 @@ func (h *Handler) InitRoutes(port string) {
 	//
 	api := router.Group("/api")
 	{
+		api.GET("/ping", func(c *gin.Context) {
+			c.JSON(200, gin.H{
+				"message": "pong",
+			})
+		})
 		inbounds := api.Group("/inbounds")
 		{
 			//inbounds.GET("/", h.GetInbounds)
