@@ -1,0 +1,17 @@
+.idea
+.vscode
+.cache
+.sync*
+*.tar.gz
+*.log
+x-ui.db
+access.log
+error.log
+tmp
+main
+backup/
+bin/
+dist/
+release/
+/release.sh
+/x-ui
