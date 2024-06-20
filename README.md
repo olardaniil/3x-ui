@@ -1,7 +1,5 @@
 # 3X-UI
 
-[English](/README.md) | [Chinese](/README.zh.md) | [Español](/README.es_ES.md)
-
 <p align="center"><a href="#"><img src="./media/3X-UI.png" alt="Image"></a></p>
 
 **An Advanced Web Panel • Built on Xray Core**
@@ -13,12 +11,6 @@
 [![License](https://img.shields.io/badge/license-GPL%20V3-blue.svg?longCache=true)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 > **Disclaimer:** This project is only for personal learning and communication, please do not use it for illegal purposes, please do not use it in a production environment
-
-**If this project is helpful to you, you may wish to give it a**:star2:
-
-<p align="left"><a href="#"><img width="125" src="https://github.com/MHSanaei/3x-ui/assets/115543613/7aa895dd-048a-42e7-989b-afd41a74e2e1" alt="Image"></a></p>
-
-- USDT (TRC20): `TXncxkvhkDWGts487Pjqq1qT9JmwRUz8CC`
 
 ## Install & Upgrade
 
