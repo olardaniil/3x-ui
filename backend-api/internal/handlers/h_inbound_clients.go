@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"strconv"
 	"x-ui/database/model"
 )
@@ -45,18 +44,20 @@ func (h *Handler) AddInboundClient(ctx *gin.Context) {
 		ctx.JSON(400, gin.H{"error": "Missing Basic Auth credentials"})
 		return
 	}
-	log.Println(username, password)
+	//log.Println(username, password)
 	//	Проверяем пользователя
 	if !h.services.User.CheckUser(username, password) {
 		ctx.JSON(401, gin.H{"error": "Invalid username or password"})
 		return
 	}
-
 	//	Добавляем клиента
-	_, err = h.services.InboundClient.AddInboundClient(inboundId, &newClient)
+	key, _, err := h.services.InboundClient.AddInboundClient(inboundId, &newClient)
 	if err != nil {
 		ctx.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	ctx.JSON(200, gin.H{"message": "Client added successfully"})
+	ctx.JSON(200, gin.H{"" +
+		"message": "Client added successfully",
+		"result": key,
+	})
 }

@@ -12,7 +12,7 @@ type Inbound interface {
 
 type InboundClient interface {
 	GetInboundClients(inboundId int) ([]model.Client, error)
-	AddInboundClient(inboundId int, newClient *model.Client) (bool, error)
+	AddInboundClient(inboundId int, newClient *model.Client) (string, bool, error)
 }
 
 type User interface {

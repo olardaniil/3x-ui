@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"x-ui/backend-api/internal/repository"
 	"x-ui/database/model"
 )
@@ -19,6 +20,13 @@ func (s *InboundClientService) GetInboundClients(inboundId int) ([]model.Client,
 	return s.InboundClientRepo.Get(inboundId)
 }
 
-func (s *InboundClientService) AddInboundClient(inboundId int, newClient *model.Client) (bool, error) {
-	return s.InboundClientRepo.Add(inboundId, newClient)
+func (s *InboundClientService) AddInboundClient(inboundId int, newClient *model.Client) (string, bool, error) {
+	res, err := s.InboundClientRepo.Add(inboundId, newClient)
+	if err != nil {
+		return "", false, err
+	}
+
+	key := fmt.Sprintf("vless://" + newClient.ID + "@185.225.201.103:443?type=tcp&security=reality&pbk=hR_tQr8FVdSOM-k7pt4oSGtjct6FfPvKNQMDzIDvjB8&fp=chrome&sni=microsoft.com&sid=a5ee0427&spx=%2F&flow=xtls-rprx-vision#Alpha_VPN-" + newClient.Email)
+
+	return key, res, nil
 }
