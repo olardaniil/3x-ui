@@ -26,7 +26,7 @@ func (s *InboundClientService) AddInboundClient(inboundId int, newClient *model.
 		return "", false, err
 	}
 
-	key := fmt.Sprintf("vless://" + newClient.ID + "@185.225.201.103:443?type=tcp&security=reality&pbk=hR_tQr8FVdSOM-k7pt4oSGtjct6FfPvKNQMDzIDvjB8&fp=chrome&sni=microsoft.com&sid=a5ee0427&spx=%2F&flow=xtls-rprx-vision#Alpha_VPN-" + newClient.Email)
+	key := fmt.Sprint("vless://" + newClient.ID + "@185.225.201.103:443?type=tcp&security=reality&pbk=hR_tQr8FVdSOM-k7pt4oSGtjct6FfPvKNQMDzIDvjB8&fp=chrome&sni=microsoft.com&sid=a5ee0427&spx=%2F&flow=xtls-rprx-vision#Alpha_VPN-" + newClient.Email)
 
 	return key, res, nil
 }
