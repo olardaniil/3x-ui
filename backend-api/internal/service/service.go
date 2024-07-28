@@ -28,7 +28,7 @@ type Service struct {
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Inbound:       NewInboundService(repos.Inbound),
-		InboundClient: NewInboundClientService(repos.InboundClient),
+		InboundClient: NewInboundClientService(repos.InboundClient, repos.Inbound),
 		User:          NewUserService(repos.User),
 	}
 }

@@ -56,6 +56,7 @@ func (h *Handler) AddInboundClient(ctx *gin.Context) {
 		ctx.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
+
 	ctx.JSON(200, gin.H{"" +
 		"message": "Client added successfully",
 		"result": key,
