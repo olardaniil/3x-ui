@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 	"strconv"
+	"syscall"
+	"time"
 	"x-ui/backend-api/internal/repository"
 	"x-ui/database/model"
 )
@@ -44,15 +47,22 @@ func (s *InboundClientService) AddInboundClient(inboundId int, newClient *model.
 		return "", false, err
 	}
 
-	ip := GetOutboundIP()
+	ip := getOutboundIP()
 
 	//  Ключ
 	key := fmt.Sprint(string(inbound.Protocol) + "://" + newClient.ID + "@" + ip.String() + ":" + strconv.Itoa(inbound.Port) + "?type=" + streamSettings.Network + "&security=" + streamSettings.Security + "&pbk=" + streamSettings.RealitySettings.Settings.PublicKey + "&fp=chrome&sni=" + streamSettings.RealitySettings.ServerNames[0] + "&sid=" + streamSettings.RealitySettings.ShortIds[0] + "&spx=%2F&flow=" + newClient.Flow + "#" + inbound.Remark + "-" + newClient.Email)
 
+	go func() {
+		err := restartPanel(1 * time.Second)
+		if err != nil {
+			log.Println("error: send signal SIGHUP failed:", err)
+		}
+	}()
+
 	return key, res, nil
 }
 
-func GetOutboundIP() net.IP {
+func getOutboundIP() net.IP {
 	conn, err := net.Dial("udp", "8.8.8.8:80")
 	if err != nil {
 		log.Fatal(err)
@@ -60,6 +70,21 @@ func GetOutboundIP() net.IP {
 	defer conn.Close()
 	localAddr := conn.LocalAddr().(*net.UDPAddr)
 	return localAddr.IP
+}
+
+func restartPanel(delay time.Duration) error {
+	p, err := os.FindProcess(syscall.Getpid())
+	if err != nil {
+		return err
+	}
+	go func() {
+		time.Sleep(delay)
+		err := p.Signal(syscall.SIGHUP)
+		if err != nil {
+			log.Println("error: send signal SIGHUP failed:", err)
+		}
+	}()
+	return nil
 }
 
 type StreamSettingsModel struct {
